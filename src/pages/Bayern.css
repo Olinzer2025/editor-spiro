@@ -1,0 +1,299 @@
+@font-face {
+  font-family: 'Arsenal';
+  src: url('/fuentes/arsenal-ucl-2014-2015.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Impact';
+  src: url('/fuentes/Impact.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'SoccerLeague';
+  src: url('/fuentes/SoccerLeague.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'SoccerLeagueCollege';
+  src: url('/fuentes/SoccerLeagueCollege.ttf') format('truetype');
+}
+
+/* Fondo general con doble columna */
+body {
+  background-color: #cdd3cb;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Contenedor central con sombra */
+.editor-container {
+  max-width: 1300px;
+  margin: auto;
+  background: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 0 40px 20px 40px; /* ⬅️ Mucho menor padding superior e inferior */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Encabezado (antiguo, ahora no se usa pero se conserva si alguna parte aún lo llama) */
+.header-editor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-bottom: 10px;
+  gap: 12px;
+}
+
+/* ✅ NUEVO: Encabezado superior organizado en 3 bloques */
+.header-superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.bloque-izquierdo,
+.bloque-derecho {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start; /* Alinea los botones a la izquierda */
+  margin-right: auto;      /* Empuja todo el bloque hacia la izquierda */
+}
+
+/* ✅ Nuevos botones grandes para cambiar modelo o vista */
+.boton-grande-verde {
+  background-color: #008F4C;
+  color: white;
+  font-weight: bold;
+  padding: 10px 16px;
+  text-align: center;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 16px;
+  width: 120px;
+}
+
+.boton-grande-naranja {
+  background-color: #f57c00;
+  color: white;
+  font-weight: bold;
+  padding: 10px 16px;
+  text-align: center;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 16px;
+  width: 120px;
+}
+
+/* Botones antiguos */
+.boton-verde {
+  background-color: #008F4C;
+  color: white;
+}
+
+.boton-naranja {
+  background-color: #f57c00;
+  color: white;
+}
+
+/* Título modelo */
+.modelo-titulo {
+  text-align: center;
+  outline: none; /* Puedes quitar el borde azul */
+}
+
+.modelo-titulo h2 {
+  margin: 0;
+  font-size: 55px;
+  color: #D50000;
+  font-weight: 900;
+  letter-spacing: 1px;
+  transform: translateX(-80px); /* Solo el título se mueve */
+}
+
+.modelo-titulo span {
+  font-size: 14px;
+  color: #D50000;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 4px;
+
+  /* ✅ Mueve manualmente hacia la izquierda */
+  position: relative;
+  left: 80px; /* Ajusta este número a tu gusto */
+  text-align: left;
+}
+/* Layout principal: paleta - imagen - control */
+.main-editor {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+/* Paleta lateral izquierda */
+.paleta-colores {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 1536px;
+  overflow-y: auto;
+
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 160px;
+}
+
+.paleta-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 8px;
+}
+
+.color-opcion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: transform 0.1s ease;
+}
+
+.color-opcion:hover {
+  transform: scale(1.05);
+}
+
+.color-circulo {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid #333;
+}
+
+/* Panel lateral derecho */
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 220px;
+}
+
+.control-panel select {
+  padding: 8px;
+  font-weight: bold;
+  border: 2px solid black;
+}
+
+.control-panel input[type="file"] {
+  margin-bottom: 8px;
+}
+
+.subir-logos {
+  background-color: #A8D847;
+  padding: 6px 12px;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.boton-rojo {
+  background-color: #D50000;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* Render central de camiseta */
+.main-editor > div:nth-child(2) {
+  transform: scale(1.05);
+  transform-origin: top center;
+}
+
+/* === CAMBIOS AGREGADOS === */
+
+/* 1. Paleta colocada a la derecha debajo del menú */
+.paleta-colores {
+  order: 2;
+  margin-top: 60px;
+}
+
+/* 2. Contenedor para botones superiores izquierdos (reubicado como parte de .bloque-izquierdo) */
+.botones-superiores {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: -10px;
+  margin-left: 0;
+  width: 100%;
+  max-width: 1300px;
+}
+
+/* 3. Botones grandes con texto en dos líneas */
+.boton-cambio {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  white-space: pre-line;
+  line-height: 1.2;
+  min-width: 140px;
+}
+
+.main-editor {
+  display: flex;
+  align-items: flex-start; /* Alinea camiseta y select desde arriba */
+  justify-content: center;
+  gap: 24px; /* Espacio horizontal entre camiseta y controles */
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.camiseta-render {
+  margin-top: 0px !important;
+  padding-top: 0 !important;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  /*outline: 1px dashed red;  Solo temporal */
+}
+
+.control-panel {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.control-panel select {
+  margin-top: 6px; /* Ajuste visual fino si lo necesitas */
+}
+
+.texto-movable span {
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+}
