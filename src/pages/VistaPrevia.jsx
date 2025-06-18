@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import html2canvas from 'html2canvas';
 
 const VistaPrevia = () => {
   const [datos, setDatos] = useState(null);
@@ -24,10 +25,10 @@ const { modelo = 'bayern', coloresZona, colorDiseno, logos, nombreEstilo, numero
 const modeloBase = modelo.replace('_cuello_v', '');
 const esCuelloV = modelo.includes('_cuello_v');
   
- const ESCALA_RENDER = 400 / 1024;
+const ESCALA_RENDER = 400 / 1024;
 const escalaLogo = ESCALA_RENDER;
-const width = `${1024 * ESCALA_RENDER}px`;
-const height = `${1536 * ESCALA_RENDER}px`;
+const width = `${1024 * ESCALA_RENDER}px`;    // 400px
+const height = `${1162 * ESCALA_RENDER}px`;   // 454.6875px
 
  const zonasNormales = [
   esCuelloV ? 'base_cv' : 'base',
@@ -100,7 +101,15 @@ const height = `${1536 * ESCALA_RENDER}px`;
   );
 
 const renderVista = (vista) => (
-  <div style={{ position: 'relative', width, height, margin: '20px' }}>
+  <div
+    style={{
+      position: 'relative',
+      width,
+      height,
+      margin: '40px',
+      ...(vista === 'frente' && { transform: 'translateX(-40px)' }), // 🔄 ajuste solo al frente
+    }}
+  >
     {/* BASE */}
     <img
   src={`/modelos_${modeloBase}/${vista}/${esCuelloV ? 'base_cv' : 'base'}.png`}
@@ -122,7 +131,7 @@ const renderVista = (vista) => (
         alt={`Short ${shortSeleccionado}`}
         style={{
           position: 'absolute',
-          top: '120px',
+          top: '60px',
           left: '0',
           width,
           height: 'auto',
@@ -187,7 +196,7 @@ const renderVista = (vista) => (
   <>
     <img
       src={`/modelos_${modeloBase}/espalda/spiro_cuello.png`}
-      style={{ position: 'absolute', top: -13, left: 0, width, height, zIndex: 3 }}
+      style={{ position: 'absolute', top: -18, left: 0, width, height, zIndex: 3 }}
     />
 
     {/* Posición dinámica según tipo de cuello */}
@@ -195,8 +204,8 @@ const renderVista = (vista) => (
   src={`/modelos_${modeloBase}/espalda/nombre_v${nombreEstilo}.png`}
   style={{
     position: 'absolute',
-    top: `${270 * ESCALA_RENDER}px`,
-    left: '75%',
+    top: `${120 * ESCALA_RENDER}px`,
+    left: '88%',
     transform: 'translateX(-50%)',
     width: `${300 * ESCALA_RENDER}px`,
     height: 'auto',
@@ -207,8 +216,8 @@ const renderVista = (vista) => (
   src={`/modelos_${modeloBase}/espalda/numero_23_v${numeroEstilo}.png`}
   style={{
     position: 'absolute',
-    top: `${360 * ESCALA_RENDER}px`,
-    left: '75%',
+    top: `${240 * ESCALA_RENDER}px`,
+    left: '86%',
     transform: 'translateX(-50%)',
     width: `${1100 * ESCALA_RENDER}px`, // ajustable según proporción real del PNG
     height: 'auto',
@@ -220,8 +229,28 @@ const renderVista = (vista) => (
 
    {vista === 'frente' && (
   <>
-    <img src={`/modelos_${modeloBase}/frente/spiro_hombro.png`} style={{ position: 'absolute', top: 0, left: 0, width, height, zIndex: 3 }} />
-    <img src={`/modelos_${modeloBase}/frente/spiro_triangulo_original.png`} style={{ position: 'absolute', top: 0, left: 0, width, height, zIndex: 3 }} />
+    <img
+  src={`/modelos_${modeloBase}/frente/spiro_hombro.png`}
+  style={{
+    position: 'absolute',
+    top: `${-200 * ESCALA_RENDER}px`,
+    left: 0,
+    width: `${1030 * ESCALA_RENDER}px`,
+    height: 'auto',
+    zIndex: 3,
+  }}
+/>
+    <img
+  src={`/modelos_${modeloBase}/frente/spiro_triangulo_original.png`}
+  style={{
+    position: 'absolute',
+    top: `${-200 * ESCALA_RENDER}px`,
+    left: `${28 * ESCALA_RENDER}px`,
+    width: `${1030 * ESCALA_RENDER}px`,
+    height: 'auto',
+    zIndex: 3,
+  }}
+/>
 
 {/* TEXTOS PERSONALIZADOS – IGUAL QUE LOGOS */}
 {textos?.[vista]?.map((texto, index) => (
@@ -268,11 +297,31 @@ const renderVista = (vista) => (
 );
   
   const handleCerrar = () => navigate('/bayern');
-  const handleCotizar = () => navigate('/formulario-cotizacion');
+// 👇 Asegúrate que esta función está así
+const handleCotizar = async () => {
+  const vista = document.querySelector('.vista-pdf');
+  if (vista) {
+    try {
+      // 👇 Evita doble render por seguridad
+      await new Promise(resolve => setTimeout(resolve, 300));
 
+      const canvas = await html2canvas(vista, { scale: 1 });
+      const imagen = canvas.toDataURL('image/png');
+      localStorage.setItem('imagenBase64', imagen);
+
+      // 👇 Navega solo después de guardar bien la imagen
+      navigate('/formulario-cotizacion');
+    } catch (error) {
+      alert('Ocurrió un error al generar la imagen. Intenta de nuevo.');
+      console.error('Error al capturar la vista previa:', error);
+    }
+  } else {
+    alert('No se encontró la vista previa para generar la imagen.');
+  }
+};
 return (
   <div style={{ textAlign: 'center', padding: '20px', backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
-
+    
     {/* Barra superior de controles */}
     <div
       style={{
@@ -371,10 +420,10 @@ return (
           COTIZAR
         </button>
       </div>
-    </div> {/* ← Este cierre es el que faltaba */}
+    </div>
 
     {/* Vista previa principal */}
-    <div
+    <div className="vista-pdf"
       style={{
         width: '1400px',
         height: '900px',

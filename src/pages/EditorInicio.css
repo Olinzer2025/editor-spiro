@@ -1,0 +1,48 @@
+.editor-inicio-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-image: url('/fondo_inicio.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+@media (max-width: 768px) {
+  .editor-inicio-container {
+    background-image: url('/fondo_inicio_movil.jpg'); /* O usa el mismo fondo si no hay otro */
+  }
+}
+
+.iniciar-boton {
+  background-color: #e30613; /* rojo Spiro */
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: bold;
+  padding: 20px 0;
+  width: 90%;
+  max-width: 400px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, background-color 0.3s ease;
+
+  /* Posición absoluta para colocarlo encima de la playera */
+  position: absolute;
+  bottom: 140px; /* sube el botón encima de la camiseta */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.iniciar-boton:hover {
+  transform: translateX(-50%) scale(1.05);
+}
+@media (max-width: 480px) {
+  .iniciar-boton {
+    font-size: 1.5rem;
+    padding: 16px 0;
+  }
+}

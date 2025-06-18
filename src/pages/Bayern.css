@@ -1,85 +1,249 @@
+/* ==== TIPOGRAFÍAS PERSONALIZADAS ==== */
 @font-face {
   font-family: 'Arsenal';
   src: url('/fuentes/arsenal-ucl-2014-2015.ttf') format('truetype');
 }
-
 @font-face {
   font-family: 'Impact';
   src: url('/fuentes/Impact.ttf') format('truetype');
 }
-
 @font-face {
   font-family: 'SoccerLeague';
   src: url('/fuentes/SoccerLeague.ttf') format('truetype');
 }
-
 @font-face {
   font-family: 'SoccerLeagueCollege';
   src: url('/fuentes/SoccerLeagueCollege.ttf') format('truetype');
 }
 
-/* Fondo general con doble columna */
+/* ==== FONDO GENERAL ==== */
 body {
-  background-color: #cdd3cb;
   margin: 0;
   font-family: 'Arial', sans-serif;
+  background-image: url('/assets/fibra-carbono-header.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
 }
 
-/* Contenedor central con sombra */
+/* ==== CONTENEDOR PRINCIPAL ==== */
 .editor-container {
   max-width: 1300px;
-  margin: auto;
+  margin: 40px auto;
   background: white;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  padding: 0 40px 20px 40px; /* ⬅️ Mucho menor padding superior e inferior */
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+  padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Encabezado (antiguo, ahora no se usa pero se conserva si alguna parte aún lo llama) */
-.header-editor {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100%;
-  margin-bottom: 10px;
-  gap: 12px;
-}
-
-/* ✅ NUEVO: Encabezado superior organizado en 3 bloques */
+/* ==== ENCABEZADO SUPERIOR ==== */
 .header-superior {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 20px;
   width: 100%;
+  margin-bottom: 0px;
+  flex-wrap: wrap;
+}
+
+.modelo-titulo {
+  margin-top: -20px;
+  margin-bottom: 0px;
+  text-align: center;
+  outline: none;
+}
+.modelo-titulo h2 {
+  margin: 0;
+  font-size: 55px;
+  color: #D50000;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.modelo-titulo span {
+  font-size: 14px;
+  color: #D50000;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 4px;
+  position: static;
+  text-align: center;
+}
+
+.main-editor {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 24px;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.camiseta-render {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  margin: 0;
+}
+
+.paleta-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  max-height: 500px;
+  padding-right: 6px;
+}
+
+.color-opcion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+.color-opcion:hover {
+  transform: scale(1.06);
+}
+.color-circulo {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid #333;
+}
+
+.control-panel {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  min-width: 250px;
+  margin-top: -50px;
+}
+.control-panel select {
+  width: 100%;
+  padding: 8px 12px;
+  font-weight: bold;
+  border: 2px solid black;
+  border-radius: 6px;
+  font-family: 'Arial', sans-serif;
+}
+
+.bloque-flotante {
+  background-color: black;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  min-width: 180px;
+}
+.bloque-flotante button,
+.bloque-flotante label {
+  width: 100%;
+  font-size: 15px;
+  font-weight: 900;
+  border-radius: 6px;
+  padding: 10px 0;
+  text-align: center;
+  letter-spacing: 0.5px;
+  transition: transform 0.2s ease;
+}
+.bloque-flotante button:hover,
+.bloque-flotante label:hover {
+  transform: scale(1.05);
+}
+.bloque-flotante button {
+  min-width: 160px;
+  font-family: 'Arial', sans-serif !important;
+  padding: 10px 12px;
+  font-size: 13px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.texto-movable span {
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+.boton-central-uniforme,
+.boton-grande-naranja,
+.boton-rojo {
+  font-family: 'Arial', sans-serif !important;
+}
+
+.bloque-central {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.fila-horizontal-centro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  background-color: black;
+  padding: 16px 24px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   margin-bottom: 20px;
   flex-wrap: wrap;
 }
 
-.bloque-izquierdo,
-.bloque-derecho {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: flex-start; /* Alinea los botones a la izquierda */
-  margin-right: auto;      /* Empuja todo el bloque hacia la izquierda */
+.fila-horizontal-centro button,
+.fila-horizontal-centro label {
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
-/* ✅ Nuevos botones grandes para cambiar modelo o vista */
-.boton-grande-verde {
-  background-color: #008F4C;
-  color: white;
+.fila-horizontal-centro button:hover,
+.fila-horizontal-centro label:hover {
+  transform: scale(1.05);
+}
+
+.boton-central-uniforme {
+  width: 180px;
+  height: 44px;
+  padding: 0 12px;
   font-weight: bold;
-  padding: 10px 16px;
+  font-size: 14px;
   text-align: center;
+  cursor: pointer;
   border: none;
   border-radius: 6px;
-  font-size: 14px;
-  line-height: 16px;
-  width: 120px;
+  font-family: 'Arial', sans-serif;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.boton-central-uniforme:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
 }
 
 .boton-grande-naranja {
@@ -94,123 +258,6 @@ body {
   line-height: 16px;
   width: 120px;
 }
-
-/* Botones antiguos */
-.boton-verde {
-  background-color: #008F4C;
-  color: white;
-}
-
-.boton-naranja {
-  background-color: #f57c00;
-  color: white;
-}
-
-/* Título modelo */
-.modelo-titulo {
-  text-align: center;
-  outline: none; /* Puedes quitar el borde azul */
-}
-
-.modelo-titulo h2 {
-  margin: 0;
-  font-size: 55px;
-  color: #D50000;
-  font-weight: 900;
-  letter-spacing: 1px;
-  transform: translateX(-80px); /* Solo el título se mueve */
-}
-
-.modelo-titulo span {
-  font-size: 14px;
-  color: #D50000;
-  text-transform: uppercase;
-  display: block;
-  margin-top: 4px;
-
-  /* ✅ Mueve manualmente hacia la izquierda */
-  position: relative;
-  left: 80px; /* Ajusta este número a tu gusto */
-  text-align: left;
-}
-/* Layout principal: paleta - imagen - control */
-.main-editor {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 40px;
-  margin-top: 30px;
-}
-
-/* Paleta lateral izquierda */
-.paleta-colores {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-height: 1536px;
-  overflow-y: auto;
-
-  background: white;
-  padding: 12px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  width: 160px;
-}
-
-.paleta-scroll {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding-right: 8px;
-}
-
-.color-opcion {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  font-size: 12px;
-  transition: transform 0.1s ease;
-}
-
-.color-opcion:hover {
-  transform: scale(1.05);
-}
-
-.color-circulo {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 1px solid #333;
-}
-
-/* Panel lateral derecho */
-.control-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  min-width: 220px;
-}
-
-.control-panel select {
-  padding: 8px;
-  font-weight: bold;
-  border: 2px solid black;
-}
-
-.control-panel input[type="file"] {
-  margin-bottom: 8px;
-}
-
-.subir-logos {
-  background-color: #A8D847;
-  padding: 6px 12px;
-  font-weight: bold;
-  color: black;
-  text-align: center;
-  border-radius: 4px;
-}
-
 .boton-rojo {
   background-color: #D50000;
   color: white;
@@ -223,77 +270,20 @@ body {
   margin-top: 20px;
 }
 
-/* Render central de camiseta */
-.main-editor > div:nth-child(2) {
-  transform: scale(1.05);
-  transform-origin: top center;
+/* ==== BREAKPOINTS SOLO DE ESCRITORIO ==== */
+@media (min-width: 1200px) {
+  .editor-container {
+    transform: scale(0.67);
+    transform-origin: top center;
+  }
 }
 
-/* === CAMBIOS AGREGADOS === */
-
-/* 1. Paleta colocada a la derecha debajo del menú */
-.paleta-colores {
-  order: 2;
-  margin-top: 60px;
+@media (min-width: 1024px) {
+  .camiseta-render {
+    transform: translateX(40px); /* Ajusta el valor a gusto */
+  }
 }
 
-/* 2. Contenedor para botones superiores izquierdos (reubicado como parte de .bloque-izquierdo) */
-.botones-superiores {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  margin-top: -10px;
-  margin-left: 0;
-  width: 100%;
-  max-width: 1300px;
-}
-
-/* 3. Botones grandes con texto en dos líneas */
-.boton-cambio {
-  font-size: 14px;
-  font-weight: bold;
-  padding: 12px 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  text-align: center;
-  white-space: pre-line;
-  line-height: 1.2;
-  min-width: 140px;
-}
-
-.main-editor {
-  display: flex;
-  align-items: flex-start; /* Alinea camiseta y select desde arriba */
-  justify-content: center;
-  gap: 24px; /* Espacio horizontal entre camiseta y controles */
-  padding-top: 0 !important;
-  margin-top: 0 !important;
-}
-
-.camiseta-render {
-  margin-top: 0px !important;
-  padding-top: 0 !important;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  /*outline: 1px dashed red;  Solo temporal */
-}
-
-.control-panel {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.control-panel select {
-  margin-top: 6px; /* Ajuste visual fino si lo necesitas */
-}
-
-.texto-movable span {
-  text-rendering: geometricPrecision;
-  -webkit-font-smoothing: antialiased;
+.select-zona {
+  margin-bottom: 16px;
 }

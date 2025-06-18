@@ -12,7 +12,7 @@ const ElegirModelo = () => {
         marginBottom: '30px',
         fontFamily: 'Arial, sans-serif'
       }}>
-        ELIGE TU MODELO
+       DESLIZA PARA ELEGIR TU MODELO
       </h1>
       <CarruselSelector />
     </div>

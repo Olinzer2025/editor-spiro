@@ -1,0 +1,333 @@
+@media (max-width: 1024px) and (orientation: portrait) {
+  /* 🌐 AJUSTES GENERALES PARA MÓVIL */
+  body {
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  /* 📦 CONTENEDOR PRINCIPAL */
+  .editor-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 16px;
+    border-radius: 0;
+    box-shadow: none;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* 🔝 CABECERA (botones superiores y título del modelo) */
+  .header-superior {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* 🟠 BOTONES FLOTANTES (Cambiar modelo / Previsualizar) */
+  .bloque-flotante {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+    gap: 12px;
+    order: 1;
+  }
+
+  .bloque-flotante button {
+    font-size: 25px;
+    font-family: 'Arial', sans-serif;
+    width: 40%;
+    max-width: 540px;
+    min-width: 260px;
+    height: 68px;
+    max-height: 80px;
+    line-height: 1.3;
+    padding: 12px 16px;
+    text-align: center;
+    white-space: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* 🔲 CONTENEDOR CENTRAL (donde van los botones Subir Logo / Agregar Texto) */
+  .bloque-central {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    order: 2;
+  }
+
+  /* 🎯 BOTONES HORIZONTALES: subir logo, agregar texto, cambiar espalda */
+  .fila-horizontal-centro {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+    gap: 12px;
+    padding: 12px;
+    order: 2;
+  }
+
+  /* 🏷️ TÍTULO DEL MODELO */
+  .modelo-titulo {
+    order: 3;
+  }
+
+  .modelo-titulo h2 {
+    font-size: 30px;
+    text-align: center;
+  }
+
+  /* 🧱 BOTONES HORIZONTALES AJUSTADOS */
+  .boton-central-uniforme,
+  .boton-grande-naranja,
+  .boton-rojo {
+    font-size: 25px;
+    padding: 14px 30px;
+    height: 64px;
+    max-width: 300px;
+    width: 100%;
+  }
+
+  /* 👕 ÁREA DE RENDERIZADO DE LA PLAYERA */
+  .camiseta-render {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
+    margin: 0 auto;
+    order: 1;
+    position: relative;
+  }
+
+  /* 🔍 ESCALA DEL RENDER */
+  .wrapper-escalado {
+    transform: scale(0.95);
+    transform-origin: top center;
+    width: 1024px;
+    height: 1162px;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    left: 0px;
+  }
+
+  /* 📐 CONTENEDOR VISUAL DE LA PLAYERA */
+  .playera-container {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* 🧩 CONTENEDOR GENERAL DE PLAYERA + PALETA */
+  .main-editor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* 🎨 PANEL LATERAL DE OPCIONES (colores, zonas) */
+  .control-panel {
+    width: 100%;
+    height: 600px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+    order: 2;
+  }
+
+/* 🧵 SELECTOR DE ZONA A PINTAR */
+.select-zona {
+  width: 100%;
+  max-width: 600px;
+  height: 70px;              /* ✅ Aumenta el alto del rectángulo */
+  font-size: 30px;            /* ✅ Texto grande y legible */
+  font-weight: bold;
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-family: 'Arial', sans-serif;
+  margin: 0 auto;
+
+  /* 🔧 Forzar estilo en todos los navegadores */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* 📱 Solo para móviles en orientación vertical */
+@media (max-width: 1024px) and (orientation: portrait) {
+  .select-zona select {
+    transform: scale(4);         /* ✅ Escala total tipo botón */
+    transform-origin: top center; /* ✅ Evita desplazamientos raros */
+  }
+}
+  /* 🎨 PALETA DE COLORES */
+  .paleta-scroll {
+    margin-top: 12px;
+    width: 95%;
+    max-width: 940px;
+    background: white;
+    padding: 0px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  /* 🔵 CADA COLOR INDIVIDUAL */
+  .paleta-scroll .color-opcion {
+    width: 14%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* 🔤 TEXTO DEL NOMBRE DEL COLOR */
+  .paleta-scroll .color-opcion span {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+
+  /* ⭕ CÍRCULO DE COLOR */
+  .color-circulo {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+  }
+}
+
+/* ===== MODO CELULAR Y TABLETA EN HORIZONTAL ===== */
+@media (max-width: 1024px) and (orientation: landscape) {
+  /* 🔝 CABECERA SUPERIOR COMPLETA */
+  .header-superior {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+  }
+
+  /* 🟠 BOTONES FLOTANTES (Cambiar modelo / Previsualizar) */
+  .bloque-flotante {
+    width: 100%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* 🎯 BOTONES HORIZONTALES (subir logo, agregar texto, cambiar espalda) */
+  .fila-horizontal-centro {
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+  }
+
+  /* 🧩 CONTENEDOR GENERAL DE PLAYERA + PALETA */
+  .main-editor {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* 👕 ÁREA DE RENDERIZADO DE LA PLAYERA */
+  .camiseta-render {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* 🔍 ESCALA DEL RENDER */
+  .camiseta-render > div {
+    width: 90vw;
+    max-width: 400px;
+    height: auto;
+    position: relative;
+    transform: none;
+    transform-origin: top center;
+  }
+
+  .camiseta-render img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* 🎨 PANEL LATERAL DE OPCIONES (colores, zonas) */
+  .control-panel {
+    width: 100%;
+    align-items: center;
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    margin-top: 12px;
+    position: relative;
+    min-height: 800px;
+  }
+
+  /* 🧵 SELECTOR DE ZONA A PINTAR */
+  .select-zona {
+    margin-top: 12px;
+    width: 80%;
+    max-width: 300px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+  }
+
+  /* 🎨 PALETA DE COLORES */
+  .paleta-scroll {
+    margin-top: 12px;
+    width: 90%;
+    max-width: 340px;
+    background: white;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+  }
+
+  /* 🔵 COLORES INDIVIDUALES */
+  .paleta-scroll .color-opcion {
+    justify-content: center;
+  }
+
+  /* 🧱 BOTONES HORIZONTALES AJUSTADOS */
+  .boton-central-uniforme,
+  .boton-grande-naranja,
+  .boton-rojo {
+    width: 100%;
+    max-width: 260px;
+  }
+
+  /* 🏷️ TÍTULO DEL MODELO */
+  .modelo-titulo h2 {
+    font-size: 30px;
+    text-align: center;
+  }
+}

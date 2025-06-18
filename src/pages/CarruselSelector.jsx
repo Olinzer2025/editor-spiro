@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/navigation';
 
 const modelos = [
   { nombre: 'Bayern', imagen: '/modelos_bayern/mockup.jpg', id: 'bayern' },
@@ -23,24 +21,7 @@ const modelos = [
 
 const CarruselSelector = () => {
   const navigate = useNavigate();
-  const [anchoCarrusel, setAnchoCarrusel] = useState('500px');
   const [indiceActual, setIndiceActual] = useState(0);
-
-  useEffect(() => {
-    const ajustarAncho = () => {
-      if (window.innerWidth >= 1200) {
-        setAnchoCarrusel('900px');
-      } else if (window.innerWidth >= 768) {
-        setAnchoCarrusel('700px');
-      } else {
-        setAnchoCarrusel('100%');
-      }
-    };
-
-    ajustarAncho();
-    window.addEventListener('resize', ajustarAncho);
-    return () => window.removeEventListener('resize', ajustarAncho);
-  }, []);
 
   const seleccionarModelo = (idModelo) => {
     localStorage.setItem('modeloElegido', idModelo);
@@ -50,45 +31,43 @@ const CarruselSelector = () => {
   const modeloActual = modelos[indiceActual];
 
   return (
-    <div style={{ textAlign: 'center', padding: '40px 20px', backgroundColor: '#000', minHeight: '100vh' }}>
-      <Swiper
-        modules={[Navigation]}
-        navigation
-        spaceBetween={30}
-        slidesPerView={1}
-        centeredSlides
-        loop
-        onSlideChange={(swiper) => setIndiceActual(swiper.realIndex)}
-        style={{ maxWidth: anchoCarrusel, margin: 'auto' }}
-      >
-        {modelos.map((modelo, index) => (
-          <SwiperSlide key={index}>
-            <div style={{ backgroundColor: '#111', borderRadius: '16px', padding: '20px', boxShadow: '0 0 20px rgba(255,255,255,0.1)' }}>
-              <img
-                src={modelo.imagen}
-                alt={modelo.nombre}
-                style={{ width: '100%', borderRadius: '12px' }}
-              />
-              <h2 style={{ color: '#fff', margin: '10px 0', fontSize: '24px' }}>{modelo.nombre.toUpperCase()}</h2>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <div
+      style={{
+        textAlign: 'center',
+        padding: '20px 16px 40px',
+        backgroundColor: '#000',
+        minHeight: '100vh',
+        boxSizing: 'border-box',
+      }}
+    >
+      <h1 style={{ color: '#fff', fontSize: '24px', marginBottom: '16px' }}>
+       
+      </h1>
 
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginTop: '30px' }}>
+      {/* 🔼 Botones arriba del carrusel */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+          gap: '12px',
+          marginBottom: '20px',
+        }}
+      >
         <button
           onClick={() => seleccionarModelo(modeloActual.id)}
           style={{
-            padding: '12px 18px',
             backgroundColor: '#008F4C',
             color: '#fff',
             border: 'none',
             borderRadius: '6px',
+            padding: '10px 16px',
+            fontSize: '1.5rem',
             fontWeight: 'bold',
-            cursor: 'pointer',
-            minWidth: '180px',
+            minWidth: '350px',
             whiteSpace: 'pre-line',
             lineHeight: '1.2',
+            cursor: 'pointer',
           }}
         >
           MODELO{'\n'}CUELLO REDONDO
@@ -97,21 +76,68 @@ const CarruselSelector = () => {
         <button
           onClick={() => seleccionarModelo(`${modeloActual.id}_cuello_v`)}
           style={{
-            padding: '12px 18px',
             backgroundColor: '#D32F2F',
             color: '#fff',
             border: 'none',
             borderRadius: '6px',
+            padding: '10px 16px',
+            fontSize: '1.5rem',
             fontWeight: 'bold',
-            cursor: 'pointer',
-            minWidth: '180px',
+            minWidth: '350px',
             whiteSpace: 'pre-line',
             lineHeight: '1.2',
+            cursor: 'pointer',
           }}
         >
           MODELO{'\n'}CUELLO EN V
         </button>
       </div>
+
+      <Swiper
+        spaceBetween={10}
+        slidesPerView={1}
+        centeredSlides
+        loop
+        onSlideChange={(swiper) => setIndiceActual(swiper.realIndex)}
+        style={{
+          width: '100%',
+          maxWidth: '1000px',
+          margin: '0 auto',
+        }}
+      >
+        {modelos.map((modelo, index) => (
+          <SwiperSlide key={index}>
+            <div
+              style={{
+                backgroundColor: '#111',
+                borderRadius: '12px',
+                padding: '10px',
+                boxShadow: '0 0 20px rgba(255,255,255,0.1)',
+              }}
+            >
+              <img
+                src={modelo.imagen}
+                alt={modelo.nombre}
+                style={{
+                  width: '100%',
+                  borderRadius: '8px',
+                  objectFit: 'contain',
+                  maxHeight: '950px',
+                }}
+              />
+              <h2
+                style={{
+                  color: '#fff',
+                  fontSize: '20px',
+                  marginTop: '10px',
+                }}
+              >
+                {modelo.nombre.toUpperCase()}
+              </h2>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Bayern.css';
+import './EditorInicio.css';
+import './ResponsiveMobile.css';
 
 const Bayern = () => {
  const [modeloActual, setModeloActual] = useState(() => localStorage.getItem('modeloElegido') || 'bayern');
@@ -214,7 +216,6 @@ const zonasDisponibles = Object.fromEntries(
     }
   };
 
-
 const actualizarTexto = (i, cambios) => {
   const copia = { ...textos };
   copia[vistaActual][i] = { ...copia[vistaActual][i], ...cambios };
@@ -258,9 +259,16 @@ const eliminarTexto = (i) => {
 return (
   <div onMouseMove={handleMouseMove} onMouseUp={stopDragging}>
     <div className="editor-container">
-      <div className="header-superior">
-<div className="bloque-izquierdo">
-  <label htmlFor="logo-upload" className="subir-logos">SUBIR LOGO</label>
+     <div className="header-superior">
+<div className="bloque-central">
+<div className="fila-horizontal-centro">
+  <label
+    htmlFor="logo-upload"
+    className="boton-central-uniforme"
+    style={{ backgroundColor: '#A8D847', color: 'black' }}
+  >
+    SUBIR LOGO
+  </label>
   <input
     id="logo-upload"
     type="file"
@@ -268,9 +276,10 @@ return (
     style={{ display: 'none' }}
     onChange={agregarLogo}
   />
-  
+
   <button
-    className="subir-logos"
+    className="boton-central-uniforme"
+    style={{ backgroundColor: '#A8D847', color: 'black' }}
     onClick={() => {
       const nuevoTexto = {
         contenido: 'Texto aquí',
@@ -290,66 +299,72 @@ return (
     AGREGAR TEXTO
   </button>
 
-  <button className="boton-rojo" onClick={handlePrevisualizar}>PREVISUALIZAR</button>
+  <button
+    className="boton-central-uniforme"
+    style={{ backgroundColor: '#008F4C', color: 'white' }}
+    onClick={cambiarVista}
+  >
+    {vistaActual === 'frente' ? 'CAMBIAR A ESPALDA' : 'CAMBIAR AL FRENTE'}
+  </button>
 </div>
 
-  <div className="modelo-titulo">
-    <h2>{`MODELO ${modeloActual.replace('_cuello_v', '').toUpperCase()}`}</h2>
-    <span>COLOREA TU PLAYERA</span>
-  </div>
-
-  <div className="bloque-derecho">
-    <button className="boton-grande-verde" onClick={cambiarVista}>
-  {vistaActual === 'frente' ? 'CAMBIAR\nA ESPALDA' : 'CAMBIAR\nAL FRENTE'}
-</button>
+<div className="modelo-titulo">
+  <h2>{`MODELO ${modeloActual.replace('_cuello_v', '').toUpperCase()}`}</h2>
+  <span>COLOREA TU PLAYERA</span>
+</div>
+</div>
+  <div className="bloque-flotante">
     <button className="boton-grande-naranja" onClick={() => navigate('/elegir-modelo')}>
-      CAMBIAR<br />MODELO
+      CAMBIAR MODELO
     </button>
+    <button className="boton-rojo" onClick={handlePrevisualizar}>PREVISUALIZAR</button>
   </div>
 </div>
+
            <div className="main-editor">
   {/* Columna central: Render de la camiseta centrada */}
-  <div className="camiseta-render">
-    <div style={{ position: 'relative', width: 1024, height: 1536 }}>
+ <div className="camiseta-render">
+  <div className="wrapper-escalado">
+    <div style={{ position: 'relative', width: 1024, height: 1162 }}>
   {zonasDisponibles[esCuelloV ? 'base_cv' : 'base'] && (
-  <img
-    src={zonasDisponibles[esCuelloV ? 'base_cv' : 'base']}
-    onError={(e) => (e.target.style.display = 'none')}
-    style={{ position: 'absolute', top: 0, left: 0, width: 1024, height: 1536 }}
-    alt="base"
-  />
+ <img
+  src={zonasDisponibles[esCuelloV ? 'base_cv' : 'base']}
+  onError={(e) => (e.target.style.display = 'none')}
+  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: 'auto', display: 'block' }}
+  alt="base"
+/>
 )}
-      {[...zonasBase, ...zonasDiseno].map((zona) => {
-        const mascara = zonasDisponibles[zona];
-        if (!mascara) return null;
-        const esDiseno = zona.startsWith('diseno');
-        return (
-          <div
-            key={zona}
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: 1024,
-              height: 1536,
-              backgroundColor: coloresZona[zona] ?? (esDiseno ? colorDiseno : 'transparent'),
-              WebkitMaskImage: `url(${mascara})`,
-              maskImage: `url(${mascara})`,
-              WebkitMaskSize: '1024px 1536px',
-              maskSize: '1024px 1536px',
-              WebkitMaskRepeat: 'no-repeat',
-              maskRepeat: 'no-repeat',
-              mixBlendMode: esDiseno ? 'normal' : 'multiply',
-              opacity: esDiseno ? 1 : 0.9,
-              pointerEvents: 'none',
-              zIndex: zona === 'tapa-costura' ? 10 : 1,
-            }}
-          />
-        );
-      })}
+   {[...zonasBase, ...zonasDiseno].map((zona) => {
+  const mascara = zonasDisponibles[zona];
+  if (!mascara) return null;
+  const esDiseno = zona.startsWith('diseno');
+  return (
+    <div
+      key={zona}
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+       width: 1024,
+height: 1162, // ⬅️ Igual que el contenedor principal
+        backgroundColor: coloresZona[zona] ?? (esDiseno ? colorDiseno : 'transparent'),
+        WebkitMaskImage: `url(${mascara})`,
+        maskImage: `url(${mascara})`,
+        WebkitMaskSize: esDiseno ? '1024px 1162px' : 'contain',
+        maskSize: esDiseno ? '1024px 1162px' : 'contain',
+        WebkitMaskRepeat: 'no-repeat',
+        maskRepeat: 'no-repeat',
+        mixBlendMode: esDiseno ? 'normal' : 'multiply',
+        opacity: esDiseno ? 1 : 0.9,
+        pointerEvents: 'none',
+        zIndex: zona === 'tapa-costura' ? 10 : 1,
+      }}
+    />
+  );
+})}
       {vistaActual === 'espalda' && (
         <>
-          <img src={`/modelos_${modeloBase}/espalda/spiro_cuello.png`} style={{ position: 'absolute', top:'-30px', left: 0, width: 1024, height: 1536, zIndex: 3 }} />
+          <img src={`/modelos_${modeloBase}/espalda/spiro_cuello.png`} style={{ position: 'absolute', top:'-68px', left: 0, width: 1024, height: 1536, zIndex: 3 }} />
  
     {/* SOLO CAMBIAMOS EL PATH DE NOMBRE Y NÚMERO */}
     <img
@@ -357,7 +372,7 @@ return (
       onClick={cambiarEstiloNombre}
       style={{
         position: 'absolute',
-        top: '270px',
+        top: '120px',
         left: '360px',
         width: '300px',
         height: 'auto',
@@ -370,7 +385,7 @@ return (
       onClick={cambiarEstiloNumero}
       style={{
         position: 'absolute',
-        top: '360px',
+        top: '220px',
         left: 0,
         width: 1024,
         height: 1236,
@@ -380,12 +395,39 @@ return (
     />
   </>
 )}
-      {vistaActual === 'frente' && (
-        <>
-          <img src={`/modelos_${modeloBase}/frente/spiro_hombro.png`} style={{ position: 'absolute', top: 0, left: 0, width: 1024, height: 1536, zIndex: 3, pointerEvents: 'none' }} />
-          <img src={`/modelos_${modeloBase}/frente/spiro_triangulo_original.png`} style={{ position: 'absolute', top: 0, left: 0, width: 1024, height: 1536, zIndex: 3, pointerEvents: 'none' }} />
-        </>
-      )}
+{vistaActual === 'frente' && (
+  <>
+    {/* Logo Spiro en el hombro izquierdo */}
+    <img
+      src={`/modelos_${modeloBase}/frente/spiro_hombro.png`}
+      style={{
+        position: 'absolute',
+        top: -200,
+        left: 0,
+        width: 1030,
+        height: 'auto',
+        zIndex: 20,
+        pointerEvents: 'none',
+      }}
+      alt="Logo Spiro Hombro"
+    />
+
+    {/* Logo triangular inferior izquierdo */}
+    <img
+      src={`/modelos_${modeloBase}/frente/spiro_triangulo_original.png`}
+      style={{
+        position: 'absolute',
+        top: -200,
+        left: 28,
+        width: 1030,
+        height: 'auto',
+        zIndex: 20,
+        pointerEvents: 'none',
+      }}
+      alt="Logo Spiro Triángulo"
+    />
+  </>
+)}
       {logos[vistaActual].map((logo, i) => (
         <div
           key={i}
@@ -414,9 +456,10 @@ return (
           )}
         </div>
       ))}
+      </div> {/* ← ⚠️ Cierra el <div className="wrapper-escalado"> */}
 
 {textos[vistaActual].map((t, i) => (
-  <div
+    <div
     key={`txt-${i}`}
     className={`texto-movable ${selectedTextoIndex === i ? 'texto-activo' : ''}`}
     style={{
@@ -502,50 +545,60 @@ return (
     </div>
   </div>
 
-  {/* Columna lateral derecha: Select + paleta */}
-  <div className="control-panel">
+ {/* Columna lateral derecha: Select + paleta */}
+<div className="control-panel">
   <select
-  value={zonaSeleccionada}
-  onChange={(e) => setZonaSeleccionada(e.target.value)}
-  style={{ marginBottom: '16px' }}
->
-  <option value="">Seleccionar zona</option>
- {[...zonasBase, ...zonasDiseno]
-  .filter(z => z !== 'base' && z !== 'base_cv')
-  .map((z) => {
-    let label = z;
+    value={zonaSeleccionada}
+    onChange={(e) => setZonaSeleccionada(e.target.value)}
+    className="select-zona"
+  >
+    <option value="">Seleccionar zona</option>
+    {[...zonasBase, ...zonasDiseno]
+      .filter(z => z !== 'base' && z !== 'base_cv')
+      .map((z) => {
+        let label = z;
 
-    if (z === 'cuello' || z === 'cuelloV') label = 'Cuello y Puños';
-    else if (z === 'mangas' || z === 'mangasV') label = 'Mangas y Espalda';
-    else if (z === 'detalle_de_cuello') label = 'Detalle de Cuello';
-    else if (z === 'tapa-costura') label = 'Tapa Costura';
-    else if (z === 'cuerpoV') label = 'Cuerpo (Cuello V)';
-    else if (z === 'cuerpo') label = 'Cuerpo';
-    else if (z.startsWith('diseno')) label = 'Color Diseño';
+        if (z === 'cuello' || z === 'cuelloV') label = 'Cuello y Puños';
+        else if (z === 'mangas' || z === 'mangasV') label = 'Mangas y Espalda';
+        else if (z === 'detalle_de_cuello') label = 'Detalle de Cuello';
+        else if (z === 'tapa-costura') label = 'Tapa Costura';
+        else if (z === 'cuerpoV') label = 'Cuerpo (Cuello V)';
+        else if (z === 'cuerpo') label = 'Cuerpo';
+        else if (z.startsWith('diseno')) label = 'Color Diseño';
 
-    return (
-      <option key={z} value={z}>
-        {label}
-      </option>
-    );
-  })}
-</select>
+        return (
+          <option key={z} value={z}>
+            {label}
+          </option>
+        );
+      })}
+  </select>
 
- {zonaSeleccionada && (
-  <div className="paleta-scroll">
-    {coloresDisponibles.map((c) => (
-      <div
-        key={c.hex}
-        onClick={() => pintarZona(c.hex)}
-        className="color-opcion"
-        title={c.nombre}
-      >
-        <div className="color-circulo" style={{ backgroundColor: c.hex }} />
-        <span>{c.nombre}</span>
+  {zonaSeleccionada && (
+    <div className="paleta-scroll">
+      <div className="paleta-titulo">
+        {zonaSeleccionada
+          ? `Color para ${zonaSeleccionada}`
+          : 'Selecciona una zona para comenzar'}
       </div>
-    ))}
-  </div>
-)}
+
+      {coloresDisponibles.map((c) => (
+        <div
+          key={c.hex}
+          onClick={() => pintarZona(c.hex)}
+          className="color-opcion"
+          title={c.nombre}
+          style={{
+            pointerEvents: zonaSeleccionada ? 'auto' : 'none',
+            opacity: zonaSeleccionada ? 1 : 0.4
+          }}
+        >
+          <div className="color-circulo" style={{ backgroundColor: c.hex }} />
+          <span>{c.nombre}</span>
+        </div>
+      ))}
+    </div>
+  )}
 {/* ← cierra control-panel */}
 </div>
 
@@ -562,3 +615,4 @@ return (
 };
 
 export default Bayern;
+

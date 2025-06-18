@@ -1,5 +1,7 @@
+// FormularioCotizacion.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import emailjs from '@emailjs/browser'; // ✅ Paquete actualizado
 
 const FormularioCotizacion = () => {
   const navigate = useNavigate();
@@ -8,17 +10,47 @@ const FormularioCotizacion = () => {
   const [telefono, setTelefono] = useState('');
   const [comentarios, setComentarios] = useState('');
   const [error, setError] = useState('');
+  const [enviando, setEnviando] = useState(false);
 
-  const handleEnviar = () => {
+  const handleEnviar = async () => {
     if (!nombre || !correo || !telefono) {
       setError('Por favor completa todos los campos obligatorios.');
       return;
     }
 
     setError('');
-    // Aquí puedes enviar los datos al backend o por correo
-    alert('Cotización enviada correctamente.');
-    navigate('/'); // Puedes cambiar esto si prefieres otra ruta de redirección después de enviar
+    setEnviando(true);
+
+    try {
+      const imagen = localStorage.getItem('imagenBase64');
+
+      if (!imagen) {
+        throw new Error('No se encontró la imagen en localStorage.');
+      }
+
+      const templateParams = {
+        nombre,
+        correo,
+        telefono,
+        comentarios,
+        imagen_base64: imagen, // debe estar configurado en tu plantilla de EmailJS
+      };
+
+      await emailjs.send(
+        'service_l6gzi8m',            // ✅ ID del servicio
+        'template_z3hi9t9',           // ✅ ID de la plantilla
+        templateParams,
+        'mX3ZQC7StVJK7WZu9'           // ✅ Tu clave pública
+      );
+
+      alert('Cotización enviada correctamente.');
+      navigate('/');
+    } catch (err) {
+      console.error('Error completo al enviar:', err);
+      alert('Hubo un error al enviar la cotización.');
+    } finally {
+      setEnviando(false);
+    }
   };
 
   return (
@@ -59,8 +91,18 @@ const FormularioCotizacion = () => {
         <button onClick={() => navigate('/vista-previa')} style={{ padding: '10px 20px' }}>
           Regresar
         </button>
-        <button onClick={handleEnviar} style={{ backgroundColor: '#e63900', color: '#fff', padding: '10px 20px', border: 'none' }}>
-          Enviar cotización
+        <button
+          onClick={handleEnviar}
+          disabled={enviando}
+          style={{
+            backgroundColor: enviando ? '#aaa' : '#e63900',
+            color: '#fff',
+            padding: '10px 20px',
+            border: 'none',
+            cursor: enviando ? 'not-allowed' : 'pointer'
+          }}
+        >
+          {enviando ? 'Enviando...' : 'Enviar cotización'}
         </button>
       </div>
     </div>
